@@ -4,37 +4,37 @@ namespace Naidis_TARpe24;
 
 public partial class StartPage : ContentPage
 {
-    public List<ContentPage> lehed = new List<ContentPage>() { new TextPage(), new FigurePage() };
-    public List<string> tekstid = new List<string> { "Tee lahti TextPage", "Tee lahti FigurePage" };
+    public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(), new FigurePage(), new Timer_Page() };
+    public List<string> LeheNimed = new List<string> { "Tekst", "Kujund", "Timer" };
 
     ScrollView sv;
     VerticalStackLayout vst;
 	public StartPage()
 	{
         //InitializeComponent();
-        Title = "Avaleht";
-        vst = new VerticalStackLayout { BackgroundColor = Color.FromRgb(180, 100, 20) };
-        for (int i = 0; i < tekstid.Count; i++)
+        //Title = "Avaleht";
+        vst = new VerticalStackLayout { Padding=20, Spacing=15 };
+        for (int i = 0; i < Lehed.Count; i++)
         {
             Button nupp = new Button
             {
-                Text = tekstid[i],
+                Text = LeheNimed[i],
                 BackgroundColor = Colors.MintCream,
                 TextColor = Colors.Black,
+                FontSize=36,
                 FontFamily = "Corleone 400",
-                BorderWidth = 10,
-                ZIndex=i
+                CornerRadius = 10,
+                ZIndex=i,
+                HeightRequest=60
             };
             vst.Add(nupp);
-            nupp.Clicked += Nupp_Clicked;
+            nupp.Clicked += (sender, e) =>
+            {
+                var valik = Lehed[nupp.ZIndex];
+                Navigation.PushAsync(valik);
+            };
         }
         sv = new ScrollView { Content = vst };
         Content = sv;
-    }
-
-    private async void Nupp_Clicked(object? sender, EventArgs e)
-    {
-        Button btn = sender as Button;
-        await Navigation.PushAsync(lehed[btn.ZIndex]);
     }
 }

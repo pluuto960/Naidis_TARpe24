@@ -8,12 +8,22 @@ namespace Naidis_TARpe24
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new AppShell());
+            //MainPage = new NavigationPage(new AppShell());
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            //loome esimese lehe (nt StartPage)
+            var startPage = new StartPage();
+
+            //Pakime selle NavigationPage sisse, et tekiks ülemine riba ja "tagasi nupp
+            var navPage = new NavigationPage(startPage)
+            {
+                BarBackgroundColor = Colors.Blue, //Saab stiilida riba
+                BarTextColor = Colors.White
+            };
+
+            return new Window(navPage);
         }
     }
 }

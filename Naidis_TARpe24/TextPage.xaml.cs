@@ -5,69 +5,107 @@ public partial class TextPage : ContentPage
 	Label lbl;
 	Editor editor;
 	HorizontalStackLayout hsl;
-	List<string> buttons = new List<string> { "Tagasi", "Avaleht", "Edasi" };
+	VerticalStackLayout vsl;
+	List<string> nupud = new List<string> { "Tagasi", "Avaleht", "Edasi" };
 	public TextPage()
 	{
 		lbl = new Label
 		{
 			Text = "Pealkiri",
-			TextColor=Color.FromRgb(100,10,10),
+			TextColor=Colors.Black,
 			FontFamily="Corleone 400",
 			FontAttributes=FontAttributes.Bold,
 			TextDecorations=TextDecorations.Underline,
-			HorizontalTextAlignment=TextAlignment.Center,
-			VerticalTextAlignment=TextAlignment.Center,
-			FontSize=28,
+			FontSize=36,
 		};
 		editor = new Editor
 		{
-			Placeholder = "Vihje: Sisesta siia tekst",
-			PlaceholderColor = Color.FromRgb(250, 200, 100),
-			TextColor = Color.FromRgb(200, 200, 100),
-			BackgroundColor = Color.FromRgb(100, 50, 200),
-			FontSize = 28,
+			Placeholder = "Sisesta tekst...",
+			PlaceholderColor = Colors.Red,
+			FontSize = 18,
 			FontAttributes = FontAttributes.Italic,
+			HorizontalOptions=LayoutOptions.Center,
 		};
-		editor.TextChanged += Teksti_sisestamine;//lisame syndmus TextChanged, mis k2ivitab funktsiooni Teksti_sisestamine
-		hsl = new HorizontalStackLayout { };
-		for (int i = 0; i < 3; i++)
+		editor.TextChanged += (sender, e) =>
 		{
-			Button b = new Button
+			lbl.Text = editor.Text;
+		};
+		hsl = new HorizontalStackLayout { Spacing = 20, HorizontalOptions = LayoutOptions.Center };
+		for (int i = 0; i < nupud.Count; i++)
+		{
+			Button nupp = new Button
 			{
-				Text = buttons[i],
-				ZIndex = i,
-				WidthRequest = DeviceDisplay.Current.MainDisplayInfo.Width / 8.3,
+				Text = nupud[i],
+				FontSize=28,
+				FontFamily="Corleone 400",
+				TextColor=Colors.Violet,
+				Background=Colors.LightGray,
+				CornerRadius=10,
+				HeightRequest=50,
+				ZIndex=i
 			};
-			hsl.Add(b);
-			b.Clicked += Liikumine;
+			hsl.Add(nupp);
+			nupp.Clicked += Liikumine;
 		}
-		VerticalStackLayout vst = new VerticalStackLayout
+        Button tts = new Button //texttospeech
+        {
+            Text = "Räägi",
+            FontSize = 28,
+            FontFamily = "Corleone 400",
+            TextColor = Colors.Violet,
+            Background = Colors.LightGray,
+            CornerRadius = 10,
+            HeightRequest = 50
+        };
+		tts.Clicked += Btn_Clicked;
+        vsl = new VerticalStackLayout
 		{
-			Children = { lbl, editor, hsl },
-			VerticalOptions = LayoutOptions.End
+			Padding=20,
+			Spacing=15,
+			Children = {lbl, editor, hsl, tts },
+			HorizontalOptions=LayoutOptions.Center
 		};
-		Content = vst;
+		Content = vsl;
 	}
-
-	private void Teksti_sisestamine(object? sender, TextChangedEventArgs e)
-	{
-		lbl.Text = editor.Text;
-	}
-
 	private async void Liikumine(object? sender, EventArgs e)
 	{
-		Button btn = (Button)sender;
-		if (btn.ZIndex == 0)
+		Button nupp = sender as Button;
+		if (nupp.ZIndex == 0)
 		{
-			await Navigation.PushAsync(new TextPage());
+			Navigation.PopAsync();
 		}
-		else if (btn.ZIndex == 1)
+		else if (nupp.ZIndex == 1)
 		{
-			await Navigation.PushAsync(new StartPage());
+			Navigation.PopToRootAsync();
 		}
-		else
+		else if (nupp.ZIndex == 2)
 		{
-			await Navigation.PushAsync(new FigurePage());
+			Navigation.PushAsync(new FigurePage());
+		}
+	}
+	private async void Btn_Clicked(object? sender, EventArgs e)
+	{
+		IEnumerable<Locale> locales = await TextToSpeech.Default.GetLocalesAsync();
+
+		SpeechOptions options = new SpeechOptions()
+		{
+			Pitch = 0.5f, // 0.0 - 2.0
+			Volume = 0.75f,
+			Locale = locales.FirstOrDefault()
+		};
+		var text = editor.Text;
+		if (string.IsNullOrWhiteSpace(text))
+		{
+			await DisplayAlert("Viga", "Palun sisesta tekst", "Ok");
+			return;
+		}
+		try
+		{
+			await TextToSpeech.SpeakAsync(text, options);
+		}
+		catch(Exception ex)
+		{
+			await DisplayAlert("TTS viga", ex.Message, "OK");
 		}
 	}
 }
