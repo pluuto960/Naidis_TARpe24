@@ -6,7 +6,7 @@ public partial class TextPage : ContentPage
 	Editor editor;
 	HorizontalStackLayout hsl;
 	List<string> buttons = new List<string> { "Tagasi", "Avaleht", "Edasi" };
-	public TextPage(int k)
+	public TextPage()
 	{
 		lbl = new Label
 		{
@@ -59,7 +59,7 @@ public partial class TextPage : ContentPage
 		Button btn = (Button)sender;
 		if (btn.ZIndex == 0)
 		{
-			await Navigation.PushAsync(new TextPage(btn.ZIndex));
+			await Navigation.PushAsync(new TextPage());
 		}
 		else if (btn.ZIndex == 1)
 		{
@@ -67,7 +67,7 @@ public partial class TextPage : ContentPage
 		}
 		else
 		{
-			await Navigation.PushAsync(new FigurePage(btn.ZIndex));
+			await Navigation.PushAsync(new FigurePage());
 		}
 	}
 }
