@@ -4,152 +4,145 @@ namespace Naidis_TARpe24;
 
 public partial class Valgusfoor : ContentPage
 {
-    BoxView boxView;
-    Ellipse pall;
-    Ellipse pall2;
-    Ellipse pall3;
-    Polygon kolmnurk;
-    Random rnd = new Random();
-    HorizontalStackLayout hsl;
-    List<string> nupud = new List<string>() { "Tˆˆle", "Avaleht", "V‰lja" };
-    VerticalStackLayout vsl;
-    bool on_off;
-    bool on_off2;
-    bool on_off3;
+    Ellipse punane;
+    Ellipse kollane;
+    Ellipse roheline;
+
+    bool punaneSees = false;
+    bool kollaneSees = false;
+    bool rohelineSees = false;
+
     public Valgusfoor()
     {
-        bool on_off = false;
-        bool on_off2 = false;
-        bool on_off3 = false;
-
-        //InitializeComponent();
-        TapGestureRecognizer tap = new TapGestureRecognizer();
-        TapGestureRecognizer tap2 = new TapGestureRecognizer();
-        TapGestureRecognizer tap3 = new TapGestureRecognizer();
-       
-        
-        tap.Tapped += (sender, e) =>
-        {
-            if (on_off==false)
-            {
-                pall.Fill = new SolidColorBrush(Colors.Red);
-                on_off = true;
-            }
-            else if (on_off == true)
-            {
-                pall.Fill = new SolidColorBrush(Colors.Grey);
-                on_off = false;
-            }
-        };
-        tap2.Tapped += (sender, e) =>
-        {
-            if (on_off2 == false)
-            {
-                pall2.Fill = new SolidColorBrush(Colors.Yellow);
-                on_off2 = true;
-            }
-            else if (on_off2 == true)
-            {
-                pall2.Fill = new SolidColorBrush(Colors.Grey);
-                on_off2 = false;
-            }
-        };
-        tap3.Tapped += (sender, e) =>
-        {
-            if (on_off3 == false)
-            {
-                pall3.Fill = new SolidColorBrush(Colors.Green);
-                on_off3 = true;
-            }
-            else if (on_off3 == true)
-            {
-                pall3.Fill = new SolidColorBrush(Colors.Grey);
-                on_off3 = false;
-            }
-        };
-
-
-        pall = new Ellipse
+        // ===== PUNANE =====
+        punane = new Ellipse
         {
             WidthRequest = 200,
             HeightRequest = 200,
-            Fill = new SolidColorBrush(Colors.Grey), //kujundi v‰rv brushi'i abil
-            Stroke = Colors.Black,//‰‰rise v‰rv
-            StrokeThickness = 5,//‰‰rise paksus
-            HorizontalOptions = LayoutOptions.Center,
-            VerticalOptions = LayoutOptions.Center
-        };
-        pall.GestureRecognizers.Add(tap);
-
-        pall2 = new Ellipse
-        {
-            WidthRequest = 200,
-            HeightRequest = 200,
-            Fill = new SolidColorBrush(Colors.Grey), //kujundi v‰rv brushi'i abil
-            Stroke = Colors.Black,//‰‰rise v‰rv
-            StrokeThickness = 5,//‰‰rise paksus
-            HorizontalOptions = LayoutOptions.Center,
-            VerticalOptions = LayoutOptions.Center
-        };
-        pall2.GestureRecognizers.Add(tap2);
-
-        pall3 = new Ellipse
-        {
-            WidthRequest = 200,
-            HeightRequest = 200,
-            Fill = new SolidColorBrush(Colors.Grey), //kujundi v‰rv brushi'i abil
-            Stroke = Colors.Black,//‰‰rise v‰rv
-            StrokeThickness = 5,//‰‰rise paksus
-            HorizontalOptions = LayoutOptions.Center,
-            VerticalOptions = LayoutOptions.Center
-        };
-        pall3.GestureRecognizers.Add(tap3);
-
-        vsl = new VerticalStackLayout
-        {
-            Padding = 20,
-            Spacing = 15,
-            Children = { pall, pall2, pall3, hsl },
+            Fill = new SolidColorBrush(Colors.Grey),
+            Stroke = Colors.Black,
+            StrokeThickness = 5,
             HorizontalOptions = LayoutOptions.Center
         };
 
-
-        for (int j = 0; j < nupud.Count; j++)
+        TapGestureRecognizer tap1 = new TapGestureRecognizer();
+        tap1.Tapped += (s, e) =>
         {
-            Button nupp = new Button
+            punaneSees = !punaneSees;
+            punane.Fill = new SolidColorBrush(punaneSees ? Colors.Red : Colors.Grey);
+        };
+        punane.GestureRecognizers.Add(tap1);
+
+        // ===== KOLLANE =====
+        kollane = new Ellipse
+        {
+            WidthRequest = 200,
+            HeightRequest = 200,
+            Fill = new SolidColorBrush(Colors.Grey),
+            Stroke = Colors.Black,
+            StrokeThickness = 5,
+            HorizontalOptions = LayoutOptions.Center
+        };
+
+        TapGestureRecognizer tap2 = new TapGestureRecognizer();
+        tap2.Tapped += (s, e) =>
+        {
+            kollaneSees = !kollaneSees;
+            kollane.Fill = new SolidColorBrush(kollaneSees ? Colors.Yellow : Colors.Grey);
+        };
+        kollane.GestureRecognizers.Add(tap2);
+
+        // ===== ROHELINE =====
+        roheline = new Ellipse
+        {
+            WidthRequest = 200,
+            HeightRequest = 200,
+            Fill = new SolidColorBrush(Colors.Grey),
+            Stroke = Colors.Black,
+            StrokeThickness = 5,
+            HorizontalOptions = LayoutOptions.Center
+        };
+
+        TapGestureRecognizer tap3 = new TapGestureRecognizer();
+        tap3.Tapped += (s, e) =>
+        {
+            rohelineSees = !rohelineSees;
+            roheline.Fill = new SolidColorBrush(rohelineSees ? Colors.Green : Colors.Grey);
+        };
+        roheline.GestureRecognizers.Add(tap3);
+
+        // ===== NUPUD =====
+        Button btnKoikToole = new Button
+        {
+            Text = "Kıik tˆˆle",
+            FontSize = 22,
+            BackgroundColor = Colors.LightGreen
+        };
+        btnKoikToole.Clicked += (s, e) => KoikToole();
+
+        Button btnAvaleht = new Button
+        {
+            Text = "Avaleht",
+            FontSize = 22,
+            BackgroundColor = Colors.LightBlue
+        };
+        btnAvaleht.Clicked += async (s, e) =>
+        {
+            await Navigation.PushAsync(new StartPage());
+        };
+
+        Button btnKoikValja = new Button
+        {
+            Text = "Kıik v‰lja",
+            FontSize = 22,
+            BackgroundColor = Colors.IndianRed
+        };
+        btnKoikValja.Clicked += (s, e) => KoikValja();
+
+        // ===== LAYOUT =====
+        VerticalStackLayout layout = new VerticalStackLayout
+        {
+            Padding = 20,
+            Spacing = 20,
+            HorizontalOptions = LayoutOptions.Center,
+            Children =
             {
-                Text = nupud[j],
-                FontSize = 28,
-                FontFamily = "Corleone 400",
-                TextColor = Colors.Chocolate,
-                BackgroundColor = Colors.Beige,
-                CornerRadius = 10,
-                HeightRequest = 50,
-                ZIndex = j
-            };
-            vsl.Add(nupp);
-           // nupp.Clicked += Liikumine;
-        }
+                punane,
+                kollane,
+                roheline,
+                btnKoikToole,
+                btnAvaleht,
+                btnKoikValja
+            }
+        };
 
+        ScrollView scroll = new ScrollView
+        {
+            Content = layout
+        };
 
-        
-        Content = vsl;
+        Content = scroll;
     }
 
-    //private void Liikumine(object? sender, EventArgs e)
-    //{
-    //    Button nupp = sender as Button;
-    //    if (nupp.ZIndex == 0)
-    //    {
-    //        Navigation.PushAsync();
-    //    }
-    //    else if (nupp.ZIndex == 1)
-    //    {
-    //        Navigation.PushAsync(new StartPage());
-    //    }
-    //    else if (nupp.ZIndex == 2)
-    //    {
-    //        Navigation.PushAsync(); 
-    //    }
-    //}
+    private void KoikToole()
+    {
+        punane.Fill = new SolidColorBrush(Colors.Red);
+        kollane.Fill = new SolidColorBrush(Colors.Yellow);
+        roheline.Fill = new SolidColorBrush(Colors.Green);
+
+        punaneSees = true;
+        kollaneSees = true;
+        rohelineSees = true;
+    }
+
+    private void KoikValja()
+    {
+        punane.Fill = new SolidColorBrush(Colors.Grey);
+        kollane.Fill = new SolidColorBrush(Colors.Grey);
+        roheline.Fill = new SolidColorBrush(Colors.Grey);
+
+        punaneSees = false;
+        kollaneSees = false;
+        rohelineSees = false;
+    }
 }
