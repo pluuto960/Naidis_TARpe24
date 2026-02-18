@@ -4,8 +4,8 @@ namespace Naidis_TARpe24;
 
 public partial class StartPage : ContentPage
 {
-    public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(), new FigurePage(), new Timer_Page(), new Valgusfoor() };
-    public List<string> LeheNimed = new List<string> { "Tekst", "Kujund", "Timer", "Valgusfoor" };
+    public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(), new FigurePage(), new Timer_Page(), new Valgusfoor(), new DateTime_Page(), new StepperSliderPage(), new VarviPage() };
+    public List<string> LeheNimed = new List<string> { "Tekst", "Kujund", "Timer", "Valgusfoor", "DateTime_Page", "StepperSliderPage" , "Värvi Slider"};
 
     ScrollView sv;
     VerticalStackLayout vst;
