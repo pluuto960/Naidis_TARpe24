@@ -8,6 +8,7 @@ public partial class DateTime_Page : ContentPage
 	DatePicker dp;
 	TimePicker tp;
 	AbsoluteLayout abs;
+	Picker picker;
 	public DateTime_Page()
 	{
 		lbl = new Label
@@ -26,14 +27,44 @@ public partial class DateTime_Page : ContentPage
 		{
 			Time = new TimeSpan(12, 0, 0)
 		};
-		dp.PropertyChanged += Aja_valik;
-		abs = new AbsoluteLayout { Children = { lbl, dp, tp } };
+        picker = new Picker
+        {
+            Title = "Vali värv",
+            ItemsSource = new List<string> { "Sinine", "Hall", "Valge" },
+            HorizontalOptions = LayoutOptions.Center
+        };
+        picker.SelectedIndexChanged += (sender, e) =>
+        {
+            switch (picker.SelectedIndex)
+            {
+                case 0:
+                    this.BackgroundColor = Colors.LightBlue;
+                    break;
+                case 1:
+                    this.BackgroundColor = Colors.Grey;
+                    break;
+                case 2:
+                    this.BackgroundColor = Colors.White;
+                    break;
+            }
+        };
+        dp.PropertyChanged += Aja_valik;
+		abs = new AbsoluteLayout { Children = { lbl, dp, tp, picker } };
 		AbsoluteLayout.SetLayoutBounds(lbl, new Rect(10, 10, 200, 50));
 		AbsoluteLayout.SetLayoutBounds(dp, new Rect(0.2, 0.2, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 		AbsoluteLayout.SetLayoutFlags(dp, AbsoluteLayoutFlags.PositionProportional);
 		AbsoluteLayout.SetLayoutBounds(tp, new Rect(0.2, 0.5, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 		AbsoluteLayout.SetLayoutFlags(tp, AbsoluteLayoutFlags.PositionProportional);
-		Content = abs;
+        AbsoluteLayout.SetLayoutBounds(picker, new Rect(0.2, 0.7, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+        AbsoluteLayout.SetLayoutFlags(picker, AbsoluteLayoutFlags.PositionProportional);
+
+        Content = abs;
+
+		
+		
+		
+
+
 	}
 	
 	private void Aja_valik(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
