@@ -86,7 +86,9 @@ public partial class KorrutusTest : ContentPage
             _ => 11
         };
 
-        // 10 küsimust
+        kokku =int.Parse( await DisplayPromptAsync("Küsimuste arv","Mitu küsimust soovid?", keyboard: Keyboard.Numeric));
+
+        // x küsimust
         for (int i = 1; i <= kokku; i++)
         {
             int arv1 = rnd.Next(min, max);
