@@ -4,7 +4,7 @@ namespace Naidis_TARpe24;
 
 public partial class StartPage : ContentPage
 {
-    public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(), new FigurePage(), new Timer_Page(), new Valgusfoor(), new DateTime_Page(), new StepperSliderPage(), new VarviPage(), new Snowman(), new Pop_Up_Page(), KorrutusTest() };
+    public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(), new FigurePage(), new Timer_Page(), new Valgusfoor(), new DateTime_Page(), new StepperSliderPage(), new VarviPage(), new Snowman(), new Pop_Up_Page(), new KorrutusTest() };
     public List<string> LeheNimed = new List<string> { "Tekst", "Kujund", "Timer", "Valgusfoor", "Aeg/Kuupäev", "Liigur" , "Värvi Slider", "Lumememm", "Popup Page", "Korrutustabeli Test"};
 
     ScrollView sv;
@@ -48,7 +48,7 @@ public partial class StartPage : ContentPage
         nulliNupp.Clicked += async (sender, e) =>
         {
             //Kustutame seadme mälust meie spetsiifilise võtme
-            Preferences.Default.Remove("Esimenekäivitamine");
+            Preferences.Default.Remove("EsimeneKäivitamine");
 
             //Anname tagasisidet, et nullimine õnnestus
             await DisplayAlertAsync("Edukalt nullitud", "Mälu on tühjendatud. Kui sa lehe uuesti avad, käitub äpp nagu täiesti uus!", "OK");
@@ -78,7 +78,7 @@ public partial class StartPage : ContentPage
                 await DisplayAlertAsync("Juhend", "Siin on sinu lühike juhend: vali menüüst sobiv teema ja uuri, kuidas elemendid töötavad!", "Selge");
             }
             //3. Salvestame info, et esimene käivitamine on tehtud.
-            Preferences.Default.Set("Esimenekäivitamine", false);
+            Preferences.Default.Set("EsimeneKäivitamine", false);
         }
     }
 }
