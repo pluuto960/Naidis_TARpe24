@@ -74,6 +74,14 @@ public partial class Tic_tac_toe : ContentPage
                 index++;
             }
         }
+        Button btnReset = new Button
+        {
+            Text = "Reseti väljak",
+            FontSize = 22,
+            BackgroundColor = Colors.Red,
+            TextColor=Colors.White
+        };
+        btnReset.Clicked += (s, e) => ResetGame();
 
         Content = new VerticalStackLayout
         {
@@ -86,7 +94,7 @@ public partial class Tic_tac_toe : ContentPage
                     FontSize = 28,
                     HorizontalOptions = LayoutOptions.Center
                 },
-                gameGrid
+                gameGrid, btnReset
             }
         };
     }
@@ -141,4 +149,8 @@ public partial class Tic_tac_toe : ContentPage
             }
         }
     }
+
+
+    // ============ AI ================
+    //https://www.kaggle.com/code/dhanushkishore/a-self-learning-tic-tac-toe-program/notebook
 }
