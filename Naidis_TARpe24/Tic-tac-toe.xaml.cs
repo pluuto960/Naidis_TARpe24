@@ -4,6 +4,9 @@ public partial class Tic_tac_toe : ContentPage
 {
     Grid gameGrid;
     bool isXTurn = true;
+    Label label2;
+    bool playVsBot = false;
+    Label modeLabel;
 
     // Board state
     string[] board = new string[9];
@@ -24,6 +27,21 @@ public partial class Tic_tac_toe : ContentPage
     public Tic_tac_toe()
     {
         Title = "Trips-Traps-Trull";
+
+        label2 = new Label
+        {
+            Text = "Käik: X",
+            FontSize = 20,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+
+        modeLabel = new Label
+        {
+            Text = "Reþiim: Mängija vs Mängija",
+            FontSize = 18,
+            HorizontalOptions = LayoutOptions.Center
+        };
 
         gameGrid = new Grid
         {
@@ -49,7 +67,7 @@ public partial class Tic_tac_toe : ContentPage
         {
             for (int col = 0; col < 3; col++)
             {
-                var label = new Label
+                var cellLabel = new Label
                 {
                     FontSize = 40,
                     HorizontalOptions = LayoutOptions.Center,
@@ -60,11 +78,11 @@ public partial class Tic_tac_toe : ContentPage
                 {
                     Stroke = Colors.Gray,
                     StrokeThickness = 2,
-                    Content = label
+                    Content = cellLabel
                 };
 
                 var tap = new TapGestureRecognizer();
-                tap.CommandParameter = (label, index);
+                tap.CommandParameter = (cellLabel, index);
                 tap.Tapped += OnCellTapped;
 
                 border.GestureRecognizers.Add(tap);
@@ -74,27 +92,57 @@ public partial class Tic_tac_toe : ContentPage
                 index++;
             }
         }
+
         Button btnReset = new Button
         {
             Text = "Reseti väljak",
             FontSize = 22,
             BackgroundColor = Colors.Red,
-            TextColor=Colors.White
+            TextColor = Colors.White
         };
+
         btnReset.Clicked += (s, e) => ResetGame();
+
+        Button btnReeglid = new Button
+        {
+            Text = "Mängu reeglid",
+            FontSize = 22,
+            BackgroundColor = Colors.Green,
+            TextColor = Colors.White
+        };
+        btnReeglid.Clicked += (s, e) => M2nguReeglid();
+
+        Button btnBot = new Button
+        {
+            Text = "Mängi boti vastu",
+            FontSize = 22,
+            BackgroundColor = Colors.Blue,
+            TextColor = Colors.White
+        };
+
+        btnBot.Clicked += (s, e) =>
+        {
+            playVsBot = true;
+            modeLabel.Text = "Reþiim: Mängija vs Bot";
+            ResetGame();
+        };
 
         Content = new VerticalStackLayout
         {
             Spacing = 20,
-            Children =
-            {
+            Children = {
                 new Label
                 {
                     Text = "Trips Traps Trull",
                     FontSize = 28,
                     HorizontalOptions = LayoutOptions.Center
                 },
-                gameGrid, btnReset
+                label2,
+                modeLabel,
+                gameGrid,
+                btnReset,
+                btnReeglid,
+                btnBot
             }
         };
     }
@@ -111,14 +159,22 @@ public partial class Tic_tac_toe : ContentPage
         data.label.Text = player;
         board[data.index] = player;
 
+
+        isXTurn = !isXTurn;
+        label2.Text = isXTurn ? "Käik: X" : "Käik: O";
+
+        if (playVsBot && !isXTurn)
+        {
+            BotMove();
+        }
         if (CheckWinner(player))
         {
-            DisplayAlert("Game Over", $"{player} wins!", "OK");
+            DisplayAlertAsync("Game Over", $"{player} wins!", "OK");
+            playVsBot = false;
+            modeLabel.Text = "Reþiim: Mängija vs Mängija";
             ResetGame();
             return;
         }
-
-        isXTurn = !isXTurn;
     }
 
     bool CheckWinner(string player)
@@ -139,6 +195,8 @@ public partial class Tic_tac_toe : ContentPage
     void ResetGame()
     {
         isXTurn = true;
+        label2.Text = "Käik: X";
+
         board = new string[9];
 
         foreach (var child in gameGrid.Children)
@@ -149,8 +207,50 @@ public partial class Tic_tac_toe : ContentPage
             }
         }
     }
+    void M2nguReeglid()
+    {
+        DisplayAlertAsync("Trips-Traps-Trull reeglid",
+           "1. Mängu mängivad kaks mängijat: X ja O.\n\n" +
+           "2. Mängijad teevad käike kordamööda.\n\n" +
+           "3. X alustab mängu.\n\n" +
+           "4. Eesmärk on saada kolm sama märki (X või O) " +
+           "horisontaalselt, vertikaalselt või diagonaalselt.\n\n" +
+           "5. Kui kõik ruudud on täis ja keegi ei võida, on mäng viik.",
+           "OK");
+    }
+    void BotMove()
+    {
+        Random rnd = new Random();
 
+        List<int> free = new List<int>();
 
-    // ============ AI ================
-    //https://www.kaggle.com/code/dhanushkishore/a-self-learning-tic-tac-toe-program/notebook
+        for (int i = 0; i < board.Length; i++)
+        {
+            if (string.IsNullOrEmpty(board[i]))
+                free.Add(i);
+        }
+
+        if (free.Count == 0)
+            return;
+
+        int move = free[rnd.Next(free.Count)];
+
+        var border = (Border)gameGrid.Children[move];
+        var label = (Label)border.Content;
+
+        label.Text = "O";
+        board[move] = "O";
+
+        if (CheckWinner("O"))
+        {
+            DisplayAlertAsync("Mäng läbi", "Bot (O) võitis!", "OK");
+            playVsBot = false;
+            modeLabel.Text = "Reþiim: Mängija vs Mängija";
+            ResetGame();
+            return;
+        }
+
+        isXTurn = true;
+        label2.Text = "Käik: X";
+    }
 }
