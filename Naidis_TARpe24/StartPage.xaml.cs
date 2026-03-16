@@ -16,6 +16,8 @@ public partial class StartPage : ContentPage
                                                                 new KorrutusTest(), 
                                                                 new PickerImagePage(),
                                                                 new Tic_tac_toe(),
+                                                                new Table_Page(),
+
                                                                 };
     public List<string> LeheNimed = new List<string> { "Tekst", 
                                                         "Kujund", 
@@ -29,6 +31,8 @@ public partial class StartPage : ContentPage
                                                         "Korrutustabeli Test", 
                                                         "PickerImagePage",
                                                         "Trips-Traps-Trull",
+                                                        "Table_Page",
+
                                                         };
 
     ScrollView sv;
