@@ -2,52 +2,68 @@ namespace Naidis_TARpe24;
 
 public partial class s6pradeKontaktandmed : ContentPage
 {
-    TableView tabelView;
-    SwitchCell sc;
-    ViewCell vc;
+    
+    Entry email_phone;
+    Entry message;
+    Label label1;
+    Label label2;
+    List<string> To;
+    Button btnSms;
+    Button btnEmail;
     public s6pradeKontaktandmed()
     {
-        tabelView = new TableView
+        label1 = new Label
         {
-            Root = new TableRoot
-            {
-                new TableSection("Kontaktandmed:")
+            Text="Sisesta oma andmed"
+        };
+        email_phone = new Entry
+        {
+            Placeholder = "Sisesta email või tel. number",
+            Keyboard = Keyboard.Default
+        };
+        label2 = new Label
+        {
+            Text="Sisesta oma sõnum"
+        };
+        message = new Entry
+        {
+            Placeholder = "Sisesta oma sõnum",
+            Keyboard = Keyboard.Default
+        };
+
+        Button btnSms = new Button
+        {
+            Text = "Saada sms",
+            FontSize = 22,
+            BackgroundColor = Colors.Blue,
+            TextColor = Colors.White
+        };
+        Button btnEmail = new Button
+        {
+            Text = "Saada Email",
+            FontSize = 22,
+            BackgroundColor = Colors.Blue,
+            TextColor = Colors.White
+        };
+
+        Content = new VerticalStackLayout{
+            Spacing = 20,
+            Children = {
+                new Label
                 {
-                    new EntryCell
-                    {
-                        Label="Nimi",
-                        Placeholder="Sisesta nimi",
-                        Keyboard=Keyboard.Default
-                    },
-                    new EntryCell
-                    {
-                        Label="Email",
-                        Placeholder="Sisesta email",
-                        Keyboard=Keyboard.Email
-                    },
-                    new EntryCell
-                    {
-                        Label="TelefoniNumber",
-                        Placeholder="Sisesta tel. number",
-                        Keyboard=Keyboard.Telephone
-                    },
-                    new EntryCell
-                    {
-                        Label="Kirjeldus",
-                        Placeholder="Sisesta kirjeldus",
-                        Keyboard=Keyboard.Default
-                    },
-                    sc
-                }
+                    Text = "Kontaktiraamat",
+                    FontSize = 28,
+                    HorizontalOptions = LayoutOptions.Center
+                },
+                label1,
+                email_phone,
+                label2,
+                message,
+                btnSms,
+                btnEmail
+
             }
         };
-
-        vc = new ViewCell
-        {
-
-        };
-
-        Content = tabelView;
 
 
     }
