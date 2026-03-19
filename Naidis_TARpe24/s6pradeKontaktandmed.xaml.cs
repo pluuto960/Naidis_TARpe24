@@ -38,6 +38,8 @@ public partial class s6pradeKontaktandmed : ContentPage
             BackgroundColor = Colors.Blue,
             TextColor = Colors.White
         };
+        btnSms.Clicked += Saada_sms_Clicked;
+
         Button btnEmail = new Button
         {
             Text = "Saada Email",
@@ -45,6 +47,8 @@ public partial class s6pradeKontaktandmed : ContentPage
             BackgroundColor = Colors.Blue,
             TextColor = Colors.White
         };
+        btnEmail.Clicked += Saada_email_Clicked;
+
 
         Content = new VerticalStackLayout{
             Spacing = 20,
