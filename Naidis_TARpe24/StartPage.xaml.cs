@@ -4,19 +4,21 @@ namespace Naidis_TARpe24;
 
 public partial class StartPage : ContentPage
 {
-    public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(), 
-                                                                new FigurePage(), 
-                                                                new Timer_Page(), 
-                                                                new Valgusfoor(), 
-                                                                new DateTime_Page(), 
-                                                                new StepperSliderPage(), 
-                                                                new VarviPage(), 
-                                                                new Snowman(), 
-                                                                new Pop_Up_Page(), 
-                                                                new KorrutusTest(), 
+    public List<ContentPage> Lehed = new List<ContentPage>() { new TextPage(),
+                                                                new FigurePage(),
+                                                                new Timer_Page(),
+                                                                new Valgusfoor(),
+                                                                new DateTime_Page(),
+                                                                new StepperSliderPage(),
+                                                                new VarviPage(),
+                                                                new Snowman(),
+                                                                new Pop_Up_Page(),
+                                                                new KorrutusTest(),
                                                                 new PickerImagePage(),
                                                                 new Tic_tac_toe(),
                                                                 new Table_Page(),
+                                                                new s6pradeKontaktandmed(),
+
 
                                                                 };
     public List<string> LeheNimed = new List<string> { "Tekst", 
@@ -32,6 +34,8 @@ public partial class StartPage : ContentPage
                                                         "PickerImagePage",
                                                         "Trips-Traps-Trull",
                                                         "Table_Page",
+                                                        "Kontaktiraamat",
+
 
                                                         };
 
