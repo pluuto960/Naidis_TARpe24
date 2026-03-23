@@ -68,12 +68,7 @@ public partial class s6pradeKontaktandmed : ContentPage
 
             }
         };
-
-
     }
-
-
-
     private async void Saada_sms_Clicked(object? sender, EventArgs e)
     {
         string phone = email_phone.Text;
