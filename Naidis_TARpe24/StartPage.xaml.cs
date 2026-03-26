@@ -18,6 +18,8 @@ public partial class StartPage : ContentPage
                                                                 new Tic_tac_toe(),
                                                                 new Table_Page(),
                                                                 new s6pradeKontaktandmed(),
+                                                                new List_Page(),
+
 
 
                                                                 };
@@ -35,6 +37,7 @@ public partial class StartPage : ContentPage
                                                         "Trips-Traps-Trull",
                                                         "Table_Page",
                                                         "Kontaktiraamat",
+                                                        "List_Page"
 
 
                                                         };
