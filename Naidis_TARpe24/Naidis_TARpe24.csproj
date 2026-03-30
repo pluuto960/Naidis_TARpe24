@@ -82,6 +82,9 @@
 	  <MauiXaml Update="Pop_Up_Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="riigid.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="s6pradeKontaktandmed.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

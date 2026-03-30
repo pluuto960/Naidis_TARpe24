@@ -19,6 +19,7 @@ public partial class StartPage : ContentPage
                                                                 new Table_Page(),
                                                                 new s6pradeKontaktandmed(),
                                                                 new List_Page(),
+                                                                new riigid(),
 
 
 
@@ -37,7 +38,8 @@ public partial class StartPage : ContentPage
                                                         "Trips-Traps-Trull",
                                                         "Table_Page",
                                                         "Kontaktiraamat",
-                                                        "List_Page"
+                                                        "List_Page",
+                                                        "Euroopa Riigid",
 
 
                                                         };

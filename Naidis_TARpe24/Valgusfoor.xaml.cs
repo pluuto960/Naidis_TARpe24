@@ -99,6 +99,14 @@ public partial class Valgusfoor : ContentPage
         };
         btnKoikValja.Clicked += (s, e) => KoikValja();
 
+        Button btnAutomaat = new Button
+        {
+            Text = "Automaat reziim",
+            FontSize = 22,
+            BackgroundColor = Colors.Blue
+        };
+        btnAutomaat.Clicked += (s, e) => Automaat();
+
         // ===== LAYOUT =====
         VerticalStackLayout layout = new VerticalStackLayout
         {
@@ -112,7 +120,8 @@ public partial class Valgusfoor : ContentPage
                 roheline,
                 btnKoikToole,
                 btnAvaleht,
-                btnKoikValja
+                btnKoikValja,
+                btnAutomaat
             }
         };
 
@@ -144,5 +153,31 @@ public partial class Valgusfoor : ContentPage
         punaneSees = false;
         kollaneSees = false;
         rohelineSees = false;
+    }
+    private async void Automaat()
+    {
+        punane.Fill = new SolidColorBrush(Colors.Red);
+        punaneSees = true;
+        await Task.Delay(2000);
+        punane.Fill = new SolidColorBrush(Colors.Grey);
+        punaneSees = false;
+        await Task.Delay(500);
+
+        kollane.Fill = new SolidColorBrush(Colors.Yellow);
+        kollaneSees = true;
+        await Task.Delay(2000);
+        kollane.Fill = new SolidColorBrush(Colors.Grey);
+        kollaneSees = false;
+        await Task.Delay(500);
+
+        roheline.Fill = new SolidColorBrush(Colors.Green);
+        rohelineSees = true;
+        await Task.Delay(2000);
+        roheline.Fill = new SolidColorBrush(Colors.Grey);
+        rohelineSees = false;
+        await Task.Delay(500);
+
+
+
     }
 }
