@@ -19,7 +19,7 @@ public partial class StartPage : ContentPage
                                                                 new Table_Page(),
                                                                 new s6pradeKontaktandmed(),
                                                                 new List_Page(),
-                                                                new riigid(),
+                                                                new RiigidPage(),
 
 
 
