@@ -20,6 +20,8 @@ public partial class StartPage : ContentPage
                                                                 new s6pradeKontaktandmed(),
                                                                 new List_Page(),
                                                                 new RiigidPage(),
+                                                                new KarusellPage(),
+
 
 
 
@@ -40,6 +42,8 @@ public partial class StartPage : ContentPage
                                                         "Kontaktiraamat",
                                                         "List_Page",
                                                         "Euroopa Riigid",
+                                                        "Karusell",
+
 
 
                                                         };
